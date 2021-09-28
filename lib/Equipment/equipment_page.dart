@@ -13,8 +13,6 @@ class EquipmentPage extends StatefulWidget {
 class _EquipmentPageState extends State<EquipmentPage> {
   DatabaseProvider db = DatabaseProvider();
 
-  List<Equipment> _equipmentList = [];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
               return Text("Error occurred: ${snapshot.error}");
             }
             if (snapshot.hasData) {
-              _equipmentList = snapshot.data ?? [];
+              final _equipmentList = snapshot.data ?? [];
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: EquipmentListView(equipmentList: _equipmentList,),

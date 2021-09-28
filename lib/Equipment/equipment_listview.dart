@@ -9,6 +9,8 @@ class EquipmentListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(itemBuilder: (context, index) => EquipmentTile(equipment: equipmentList[index]));
+    return ListView.builder(
+      itemCount: equipmentList.length,
+      itemBuilder: (context, index) => EquipmentTile(equipment: equipmentList[index]));
   }
 }

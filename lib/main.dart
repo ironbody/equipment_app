@@ -11,11 +11,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   var db = DatabaseProvider();
-  await db.addEquipment(Equipment(serial: "Wrk8EBa4"));
-  await db.addEquipment(Equipment(serial: "stZhg3o2"));
-  await db.addEquipment(Equipment(serial: "gkczPAs7"));
-  await db.addEquipment(Equipment(serial: "HY6NkvLb"));
-  await db.addEquipment(Equipment(serial: "R9U3FG3W"));
+  // await db.addEquipment(Equipment(serial: "Wrk8EBa4"));
+  // await db.addEquipment(Equipment(serial: "stZhg3o2"));
+  // await db.addEquipment(Equipment(serial: "gkczPAs7"));
+  // await db.addEquipment(Equipment(serial: "HY6NkvLb"));
+  // await db.addEquipment(Equipment(serial: "R9U3FG3W"));
 
   runApp(MyApp());
 }
