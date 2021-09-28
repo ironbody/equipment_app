@@ -1,4 +1,4 @@
-import 'package:equipment_app/Equipment/Equipment.dart';
+import 'package:equipment_app/Equipment/equipment.dart';
 import 'package:flutter/material.dart';
 
 class EquipmentTile extends StatelessWidget {
