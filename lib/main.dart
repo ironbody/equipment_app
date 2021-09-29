@@ -1,7 +1,7 @@
 import 'package:equipment_app/Equipment/equipment_form.dart';
 import 'package:equipment_app/Equipment/equipment_page.dart';
 import 'package:equipment_app/db/database_provider.dart';
-import 'package:equipment_app/Equipment/equipment.dart';
+import 'package:equipment_app/models/equipment.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -10,7 +10,7 @@ const String dbPath = "data.db";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  var db = DatabaseProvider();
+  // var db = DatabaseProvider();
   // await db.addEquipment(Equipment(serial: "Wrk8EBa4"));
   // await db.addEquipment(Equipment(serial: "stZhg3o2"));
   // await db.addEquipment(Equipment(serial: "gkczPAs7"));
