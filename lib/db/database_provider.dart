@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:equipment_app/Equipment/equipment.dart';
+import 'package:equipment_app/models/equipment.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 const String tableEquipment = "equipment";
-const String columnSerial = "serial";
-const String columnId = "id";
+
+const String dmlPath = "../sql/dml.sql";
 
 class DatabaseProvider {
   static Database? _database;
@@ -17,22 +17,13 @@ class DatabaseProvider {
   Future<Database> _initDatabase() async {
     var docDirectory = await getApplicationDocumentsDirectory();
     var path = join(docDirectory.path, "data.db");
-    return await openDatabase(path, version: 1, onCreate: createEquipmentTable);
+    return await openDatabase(path, version: 1, onCreate: createDatabase);
   }
 
-  Future createEquipmentTable(Database db, int version) async {
-    await db.execute("""
-  create table $tableEquipment (
-  $columnId integer primary key autoincrement,
-  $columnSerial text not null 
-  )
-    """);
-  }
+  Future createDatabase(Database db, int version) async {
+    final sql = await File(dmlPath).readAsString();
 
-  Future addEquipment(Equipment equipment) async {
-    var db = await database;
-    await db.transaction(
-        (txn) async => await txn.insert(tableEquipment, equipment.toMap()));
+    await db.execute(sql);
   }
 
   Future<List<Equipment>> getEquipment() async {
@@ -40,15 +31,18 @@ class DatabaseProvider {
 
     var db = await database;
     var result = await db.query(tableEquipment);
-    // result.forEach((element) => _equipment.add(Equipment.fromMap(element)));
 
     for (var element in result) {
       _equipment.add(Equipment.fromMap(element));
     }
 
-    print(result);
-
     await Future.delayed(const Duration(seconds: 2));
     return _equipment;
+  }
+
+  Future addEquipment(Equipment equipment) async {
+    var db = await database;
+    await db.transaction(
+        (txn) async => await txn.insert(tableEquipment, equipment.toMap()));
   }
 }
