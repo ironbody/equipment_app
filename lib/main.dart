@@ -10,8 +10,13 @@ const String dbPath = "data.db";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // var db = DatabaseProvider();
-  // await db.addEquipment(Equipment(serial: "Wrk8EBa4"));
+  var db = DatabaseProvider();
+  // await db.addEquipment(Equipment(
+  //     name: "Razer laptop",
+  //     description: "laptop from razer",
+  //     serial: "ABABA",
+  //     deviceType: DeviceType.laptop,
+  //     duration: 4));
   // await db.addEquipment(Equipment(serial: "stZhg3o2"));
   // await db.addEquipment(Equipment(serial: "gkczPAs7"));
   // await db.addEquipment(Equipment(serial: "HY6NkvLb"));
@@ -22,7 +27,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  MyApp();
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
