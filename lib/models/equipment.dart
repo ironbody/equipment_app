@@ -44,27 +44,27 @@ class Equipment {
   DateTime? startDate;
   DateTime? endDate;
   bool? available;
-  
+
 
   factory Equipment.fromMap(Map<String, dynamic> json) => Equipment(
         id: json["id"],
         name: json["name"],
         description: json["description"],
         serial: json["serial"],
-        deviceType: json["deviceType"],
-        bookingDate: DateTime.parse(json["bookingDate"]),
+        deviceType: stringToDeviceType(json["deviceType"]),
+        // startDate DateTime.parse(json["bookingDate"]),
         duration: json["duration"],
-        available: json["available"],
+        // available: json["available"],
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
+        // "id": id,
         "name": name,
         "description": description,
         "serial": serial,
         "deviceType": deviceType.toShortString(),
-        "bookingDate": bookingDate?.toIso8601String(),
+        // "bookingDate": bookingDate?.toIso8601String(),
         "duration": duration,
-        "available": available ? 1 : 0,
+        // "available": available ? 1 : 0,
       };
 }
