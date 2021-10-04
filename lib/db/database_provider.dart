@@ -4,6 +4,7 @@ import 'package:equipment_app/models/equipment.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 const String tableEquipment = "equipment";
 
@@ -21,7 +22,9 @@ class DatabaseProvider {
   }
 
   Future createDatabase(Database db, int version) async {
-    final sql = await File(dmlPath).readAsString();
+    // final sql = await File(dmlPath).readAsString();
+
+    final sql = await rootBundle.loadString("assets/sql/dml.sql");
 
     await db.execute(sql);
   }
@@ -36,13 +39,14 @@ class DatabaseProvider {
       _equipment.add(Equipment.fromMap(element));
     }
 
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     return _equipment;
   }
 
   Future addEquipment(Equipment equipment) async {
     var db = await database;
-    await db.transaction(
-        (txn) async => await txn.insert(tableEquipment, equipment.toMap()));
+    // await db.transaction(
+    //     (txn) async => await txn.insert(tableEquipment, equipment.toMap()));
+    await db.insert(tableEquipment, equipment.toMap());
   }
 }

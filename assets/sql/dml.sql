@@ -5,7 +5,7 @@ CREATE TABLE equipment (
     serial      TEXT    NOT NULL,
     deviceType  TEXT    NOT NULL,
     duration    INTEGER NOT NULL
-)
+);
 
 CREATE TABLE users (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -13,7 +13,7 @@ CREATE TABLE users (
     email       TEXT    NOT NULL,
     password    TEXT    NOT NULL,
     priviledges INTEGER NOT NULL
-)
+);
 
 CREATE TABLE bookings (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,4 +23,4 @@ CREATE TABLE bookings (
     endDate         TEXT    NOT NULL,
     FOREIGN KEY(equipmentId) REFERENCES equipment(id),
     FOREIGN KEY(userId) REFERENCES users(id)
-)
+);
