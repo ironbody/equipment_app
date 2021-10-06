@@ -3,6 +3,7 @@ import 'package:equipment_app/db/database_provider.dart';
 import 'package:equipment_app/models/equipment_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class EquipmentForm extends StatefulWidget {
   const EquipmentForm({Key? key}) : super(key: key);
@@ -13,8 +14,6 @@ class EquipmentForm extends StatefulWidget {
 
 class _EquipmentFormState extends State<EquipmentForm> {
   final _formKey = GlobalKey<FormState>();
-
-  final EquipmentListModel equipment_model = EquipmentListModel();
 
   // final myController = TextEditingController();
 
@@ -40,7 +39,7 @@ class _EquipmentFormState extends State<EquipmentForm> {
     print("submitted");
     final db = DatabaseProvider();
     await db.addEquipment(_newEquipment);
-    await equipment_model.refreshList();
+    Provider.of<EquipmentListModel>(context, listen: false).refreshList();
   }
 
   void _saveForm() {
