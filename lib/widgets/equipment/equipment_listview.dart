@@ -1,5 +1,5 @@
 import 'package:equipment_app/models/equipment.dart';
-import 'package:equipment_app/Equipment/equipment_tile.dart';
+import 'package:equipment_app/widgets/equipment/equipment_tile.dart';
 import 'package:flutter/material.dart';
 
 class EquipmentListView extends StatelessWidget {
