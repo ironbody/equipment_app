@@ -1,6 +1,7 @@
 import 'package:equipment_app/models/equipment.dart';
 import 'package:equipment_app/db/database_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class EquipmentForm extends StatefulWidget {
   const EquipmentForm({Key? key}) : super(key: key);
@@ -39,13 +40,21 @@ class _EquipmentFormState extends State<EquipmentForm> {
   }
 
   void _saveForm() {
-    _formKey.currentState?.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState?.save();
+    }
     print("saved");
+    print(_newEquipment.name);
+    print(_newEquipment.description);
     print(_newEquipment.serial);
+    print(_newEquipment.duration);
+    print(_newEquipment.deviceType.toString());
   }
 
   @override
   Widget build(BuildContext context) {
+    DeviceType _selectedType = DeviceType.other;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Equipment"),
@@ -58,6 +67,55 @@ class _EquipmentFormState extends State<EquipmentForm> {
               children: [
                 TextFormField(
                     decoration: const InputDecoration(
+                        labelText: "Name", icon: Icon(Icons.label_outline)),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    textInputAction: TextInputAction.next,
+                    onSaved: (value) {
+                      _newEquipment = Equipment(
+                          name: value ?? "",
+                          description: _newEquipment.description,
+                          serial: _newEquipment.serial,
+                          deviceType: _newEquipment.deviceType,
+                          duration: _newEquipment.duration);
+                    },
+                    onFieldSubmitted: (_) {
+                      _saveForm();
+                    }
+                    // controller: myController,
+                    ),
+                TextFormField(
+                    decoration: const InputDecoration(
+                        labelText: "Description",
+                        icon: Icon(Icons.label_outline)),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    maxLines: 3,
+                    textInputAction: TextInputAction.newline,
+                    keyboardType: TextInputType.multiline,
+                    onSaved: (value) {
+                      _newEquipment = Equipment(
+                          name: _newEquipment.name,
+                          description: value ?? "",
+                          serial: _newEquipment.serial,
+                          deviceType: _newEquipment.deviceType,
+                          duration: _newEquipment.duration);
+                    },
+                    onFieldSubmitted: (_) {
+                      _saveForm();
+                    }
+                    // controller: myController,
+                    ),
+                TextFormField(
+                    decoration: const InputDecoration(
                         labelText: "Serial Number", icon: Icon(Icons.tag)),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -67,7 +125,12 @@ class _EquipmentFormState extends State<EquipmentForm> {
                     },
                     textInputAction: TextInputAction.next,
                     onSaved: (value) {
-                      // _newEquipment = Equipment(serial: value ?? "");
+                      _newEquipment = Equipment(
+                          name: _newEquipment.name,
+                          description: _newEquipment.description,
+                          serial: value ?? "",
+                          deviceType: _newEquipment.deviceType,
+                          duration: _newEquipment.duration);
                     },
                     onFieldSubmitted: (_) {
                       _saveForm();
@@ -75,17 +138,51 @@ class _EquipmentFormState extends State<EquipmentForm> {
                     // controller: myController,
                     ),
                 TextFormField(
-                  decoration: const InputDecoration(
-                      labelText: "Type", icon: Icon(Icons.laptop_outlined)),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
+                    decoration: const InputDecoration(
+                        labelText: "Days to be rented", icon: Icon(Icons.tag)),
+                    validator: (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          int.tryParse(value) == null) {
+                        return 'Please enter a number';
+                      }
+
+                      if (int.tryParse(value)! >= 180) {
+                        return 'Must be less than 180 days';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    textInputAction: TextInputAction.next,
+                    onSaved: (value) {
+                      _newEquipment = Equipment(
+                          name: _newEquipment.name,
+                          description: _newEquipment.description,
+                          serial: _newEquipment.serial,
+                          deviceType: _newEquipment.deviceType,
+                          duration: 0);
+                    },
+                    onFieldSubmitted: (_) {
+                      _saveForm();
                     }
-                    return null;
-                  },
-                  textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (_) {
-                    _saveForm();
+                    // controller: myController,
+                    ),
+                DropdownButtonFormField<DeviceType>(
+                  decoration: const InputDecoration(
+                      labelText: "Device Type", icon: Icon(Icons.laptop)),
+                  items: DeviceType.values.map((DeviceType dt) {
+                    return DropdownMenuItem<DeviceType>(
+                        value: dt, child: Text(dt.toShortString()));
+                  }).toList(),
+                  value: _selectedType,
+                  onChanged: (DeviceType? newValue) {
+                    setState(() {
+                      _selectedType = newValue!;
+                      _newEquipment.deviceType = newValue;
+                    });
                   },
                 ),
                 ElevatedButton(
