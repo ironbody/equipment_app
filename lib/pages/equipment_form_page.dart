@@ -33,6 +33,10 @@ class _EquipmentFormState extends State<EquipmentForm> {
     super.dispose();
   }
 
+  void leaveForm() {
+    Navigator.of(context).pop();
+  }
+
   void _submitForm() async {
     // _formKey.currentState.
     _saveForm();
@@ -40,6 +44,8 @@ class _EquipmentFormState extends State<EquipmentForm> {
     final db = DatabaseProvider();
     await db.addEquipment(_newEquipment);
     Provider.of<EquipmentListModel>(context, listen: false).refreshList();
+
+    leaveForm();
   }
 
   void _saveForm() {
