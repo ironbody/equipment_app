@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 
 enum DeviceType {
   other,
@@ -45,7 +46,6 @@ class Equipment {
   DateTime? endDate;
   bool? available;
 
-
   factory Equipment.fromMap(Map<String, dynamic> json) => Equipment(
         id: json["id"],
         name: json["name"],
@@ -67,4 +67,57 @@ class Equipment {
         "duration": duration,
         // "available": available ? 1 : 0,
       };
+
+  static IconData iconFromDeviceType(DeviceType type) {
+    final IconData icon;
+
+    switch (type) {
+      case DeviceType.laptop:
+        icon = Icons.laptop;
+        break;
+      case DeviceType.tablet:
+        icon = Icons.tablet;
+        break;
+      case DeviceType.mouse:
+        icon = Icons.mouse;
+        break;
+      case DeviceType.keyboard:
+        icon = Icons.keyboard;
+        break;
+      case DeviceType.headphones:
+        icon = Icons.headphones;
+        break;
+      case DeviceType.camera:
+        icon = Icons.photo_camera;
+        break;
+      case DeviceType.other:
+        icon = Icons.devices;
+        break;
+      default:
+        icon = (Icons.devices);
+        break;
+    }
+
+    return icon;
+  }
+
+  static Icon? iconFromAvailable(bool? available) {
+    if (available == null) {
+      return null;
+    }
+
+    final Icon icon;
+
+    icon = available
+        ? const Icon(
+            Icons.check_circle,
+            color: Colors.green,
+          )
+        : const Icon(
+            Icons.cancel,
+            color: Colors.red,
+          );
+
+    return icon;
+  }
 }

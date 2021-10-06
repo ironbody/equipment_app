@@ -1,4 +1,6 @@
 import 'package:equipment_app/models/equipment.dart';
+import 'package:equipment_app/pages/equipment_details_page.dart';
+
 import 'package:flutter/material.dart';
 
 class EquipmentTile extends StatelessWidget {
@@ -6,60 +8,12 @@ class EquipmentTile extends StatelessWidget {
 
   final Equipment equipment;
 
-  final double iconSize = 40;
+  final double iconSize = 40.0;
 
-  Icon iconFromDeviceType(BuildContext context, DeviceType type) {
-    final IconData icon;
-
-    switch (type) {
-      case DeviceType.laptop:
-        icon = Icons.laptop;
-        break;
-      case DeviceType.tablet:
-        icon = Icons.tablet;
-        break;
-      case DeviceType.mouse:
-        icon = Icons.mouse;
-        break;
-      case DeviceType.keyboard:
-        icon = Icons.keyboard;
-        break;
-      case DeviceType.headphones:
-        icon = Icons.headphones;
-        break;
-      case DeviceType.camera:
-        icon = Icons.photo_camera;
-        break;
-      case DeviceType.other:
-        icon = Icons.devices;
-        break;
-      default:
-        icon = (Icons.devices);
-        break;
-    }
-
-    return Icon(icon,
-        size: iconSize, color: Theme.of(context).colorScheme.primary);
-  }
-
-  Icon? iconFromAvailable(bool? available) {
-    if (available == null) {
-      return null;
-    }
-
-    final Icon icon;
-
-    icon = available
-        ? const Icon(
-            Icons.check_circle,
-            color: Colors.green,
-          )
-        : const Icon(
-            Icons.cancel,
-            color: Colors.red,
-          );
-
-    return icon;
+  void goToDetails(BuildContext context, Equipment e) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+      return EquipmentDetailsPage(equipment: e);
+    }));
   }
 
   @override
@@ -72,9 +26,15 @@ class EquipmentTile extends StatelessWidget {
           height: iconSize,
           child: Align(
               alignment: Alignment.center,
-              child: iconFromDeviceType(context, equipment.deviceType))),
-      trailing: iconFromAvailable(equipment.available),
-      onTap: () {},
+              child: Icon(
+                Equipment.iconFromDeviceType(equipment.deviceType),
+                size: iconSize,
+                color: Theme.of(context).primaryColor,
+              ))),
+      trailing: Equipment.iconFromAvailable(equipment.available),
+      onTap: () {
+        goToDetails(context, equipment);
+      },
     );
   }
 }
