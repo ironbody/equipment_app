@@ -1,4 +1,3 @@
-import 'package:equipment_app/pages/equipment_form_page.dart';
 import 'package:equipment_app/pages/equipment_page.dart';
 import 'package:equipment_app/db/database_provider.dart';
 import 'package:equipment_app/models/equipment.dart';
@@ -22,7 +21,7 @@ void main() async {
   // await db.addEquipment(Equipment(serial: "HY6NkvLb"));
   // await db.addEquipment(Equipment(serial: "R9U3FG3W"));
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
