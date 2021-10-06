@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 enum DeviceType {
+  other,
   laptop,
   tablet,
   mouse,
   keyboard,
   headphones,
   camera,
-  other,
 }
 
 extension DeviceTypeExtension on DeviceType {
