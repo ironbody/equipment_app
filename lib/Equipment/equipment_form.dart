@@ -154,7 +154,8 @@ class _EquipmentFormState extends State<EquipmentForm> {
                     },
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
+                      FilteringTextInputFormatter.digitsOnly,
+                      FilteringTextInputFormatter.deny(RegExp(r"^0.")),
                     ],
                     textInputAction: TextInputAction.next,
                     onSaved: (value) {
@@ -163,7 +164,8 @@ class _EquipmentFormState extends State<EquipmentForm> {
                           description: _newEquipment.description,
                           serial: _newEquipment.serial,
                           deviceType: _newEquipment.deviceType,
-                          duration: 0);
+                          duration: int.tryParse(value!) ?? 0,
+                          );
                     },
                     onFieldSubmitted: (_) {
                       _saveForm();
