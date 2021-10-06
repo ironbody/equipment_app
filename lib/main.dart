@@ -1,8 +1,11 @@
+import 'package:equipment_app/models/equipment_list_model.dart';
 import 'package:equipment_app/pages/equipment_page.dart';
 import 'package:equipment_app/db/database_provider.dart';
 import 'package:equipment_app/models/equipment.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:provider/provider.dart';
 
 const String dbPath = "data.db";
 
@@ -21,7 +24,9 @@ void main() async {
   // await db.addEquipment(Equipment(serial: "HY6NkvLb"));
   // await db.addEquipment(Equipment(serial: "R9U3FG3W"));
 
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => EquipmentListModel())
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

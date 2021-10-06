@@ -1,5 +1,6 @@
 import 'package:equipment_app/models/equipment.dart';
 import 'package:equipment_app/db/database_provider.dart';
+import 'package:equipment_app/models/equipment_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,6 +13,8 @@ class EquipmentForm extends StatefulWidget {
 
 class _EquipmentFormState extends State<EquipmentForm> {
   final _formKey = GlobalKey<FormState>();
+
+  final EquipmentListModel equipment_model = EquipmentListModel();
 
   // final myController = TextEditingController();
 
@@ -37,6 +40,7 @@ class _EquipmentFormState extends State<EquipmentForm> {
     print("submitted");
     final db = DatabaseProvider();
     await db.addEquipment(_newEquipment);
+    await equipment_model.refreshList();
   }
 
   void _saveForm() {
@@ -160,12 +164,12 @@ class _EquipmentFormState extends State<EquipmentForm> {
                     textInputAction: TextInputAction.next,
                     onSaved: (value) {
                       _newEquipment = Equipment(
-                          name: _newEquipment.name,
-                          description: _newEquipment.description,
-                          serial: _newEquipment.serial,
-                          deviceType: _newEquipment.deviceType,
-                          duration: int.tryParse(value!) ?? 0,
-                          );
+                        name: _newEquipment.name,
+                        description: _newEquipment.description,
+                        serial: _newEquipment.serial,
+                        deviceType: _newEquipment.deviceType,
+                        duration: int.tryParse(value!) ?? 0,
+                      );
                     },
                     onFieldSubmitted: (_) {
                       _saveForm();
