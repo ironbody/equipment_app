@@ -105,6 +105,11 @@ class _EquipmentFormState extends State<EquipmentForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
                       }
+
+                      if (value.length > 400) {
+                        return 'Text is too long';
+                      }
+
                       return null;
                     },
                     maxLines: 3,
@@ -130,6 +135,11 @@ class _EquipmentFormState extends State<EquipmentForm> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
                       }
+
+                      if (value.length > 100) {
+                        return 'Serial number must be less than 101 characters';
+                      }
+
                       return null;
                     },
                     textInputAction: TextInputAction.next,
