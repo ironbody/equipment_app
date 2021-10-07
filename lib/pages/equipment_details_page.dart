@@ -1,6 +1,7 @@
 import 'package:equipment_app/models/equipment.dart';
-import 'package:equipment_app/widgets/details_page/description_widget.dart';
+import 'package:equipment_app/widgets/details_page/details_description.dart';
 import 'package:equipment_app/widgets/details_page/details_icon.dart';
+import 'package:equipment_app/widgets/details_page/details_serial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -18,22 +19,18 @@ class EquipmentDetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("${equipment.name} Details"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            SizedBox(
-              child: Center(
-                child: Text(equipment.name,
-                    style: TextStyle(
-                        fontSize: titleSize, fontWeight: FontWeight.bold)),
-              ),
-            ),
-            DetailIcon(
-                detailIcon: Equipment.iconFromDeviceType(equipment.deviceType)),
-            DetailsDescription(description: equipment.description),
-          ],
-        ),
+      body: ListView(
+        children: [
+          DetailIcon(
+              detailIcon: Equipment.iconFromDeviceType(equipment.deviceType)),
+          Center(
+            child: Text(equipment.name,
+                style: TextStyle(
+                    fontSize: titleSize, fontWeight: FontWeight.bold)),
+          ),
+          DetailsSerial(serial: equipment.serial),
+          DetailsDescription(description: equipment.description),
+        ],
       ),
     );
   }
