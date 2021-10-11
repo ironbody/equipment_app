@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class DetailsSerial extends StatelessWidget {
-  const DetailsSerial({Key? key, required this.serial}) : super(key: key);
+class DetailsRentDuration extends StatelessWidget {
+  const DetailsRentDuration({Key? key, required this.duration})
+      : super(key: key);
 
-  final String serial;
+  final int duration;
   final double fontSize = 20.0;
   final double titleFontSize = 24.0;
   final double padding = 8.0;
@@ -22,30 +23,18 @@ class DetailsSerial extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "Serial Number",
+                    "Rent duration",
                     style: TextStyle(fontSize: titleFontSize),
                   ),
                   const SizedBox(
                     height: 6.0,
                   ),
-                  Text(serial,
+                  Text("${duration} days",
                       style: TextStyle(
                         fontSize: fontSize,
                       )),
                 ],
               ))),
     );
-    // return SizedBox(
-    //   height: height,
-    //   child: Padding(
-    //     padding: EdgeInsets.all(padding),
-    //     child: Expanded(
-    //         child: SingleChildScrollView(
-    //             child: Text(description,
-    //                 style: TextStyle(
-    //                   fontSize: fontSize,
-    //                 )))),
-    //   ),
-    // );
   }
 }

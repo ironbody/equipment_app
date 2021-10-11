@@ -9,7 +9,7 @@ class DetailsDescription extends StatelessWidget {
   final double titleFontSize = 24.0;
   final double padding = 8.0;
   final double minHeight = 80.0;
-  final double maxHeight = 320.0;
+  final double maxHeight = 312.0;
   final double width = 360.0;
 
   @override
@@ -25,18 +25,26 @@ class DetailsDescription extends StatelessWidget {
           child: Padding(
               padding: EdgeInsets.all(padding),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     "Description",
                     style: TextStyle(fontSize: titleFontSize),
                   ),
-                  const SizedBox(height: 6.0,),
-                  Expanded(
-                      child: SingleChildScrollView(
-                          child: Text(description,
-                              style: TextStyle(
-                                fontSize: fontSize,
-                              )))),
+                  const SizedBox(
+                    height: 6.0,
+                  ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: Text(description,
+                  //       style: TextStyle(
+                  //         fontSize: fontSize,
+                  //       )),
+                  // ),
+                  Text(description,
+                      style: TextStyle(
+                        fontSize: fontSize,
+                      )),
                 ],
               ))),
     );

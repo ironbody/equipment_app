@@ -33,7 +33,7 @@ class Equipment {
     required this.duration,
     this.startDate,
     this.endDate,
-    this.available,
+    this.available = true,
   });
 
   int? id;
@@ -111,11 +111,11 @@ class Equipment {
     icon = available
         ? const Icon(
             Icons.check_circle,
-            color: Colors.green,
+            color: Colors.greenAccent,
           )
         : const Icon(
             Icons.cancel,
-            color: Colors.red,
+            color: Colors.redAccent,
           );
 
     return icon;

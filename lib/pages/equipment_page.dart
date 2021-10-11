@@ -1,7 +1,7 @@
 import 'package:equipment_app/models/equipment.dart';
 import 'package:equipment_app/models/equipment_list_model.dart';
 import 'package:equipment_app/pages/equipment_form_page.dart';
-import 'package:equipment_app/widgets/equipment/equipment_listview.dart';
+import 'package:equipment_app/widgets/equipment_page/equipment_listview.dart';
 import 'package:equipment_app/db/database_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
