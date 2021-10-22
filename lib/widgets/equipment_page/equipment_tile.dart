@@ -21,7 +21,7 @@ class EquipmentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(equipment[0].name),
-      subtitle: Text("${equipment.length} items"),
+      subtitle: Text("Quantity: ${equipment.length}"),
       leading: SizedBox(
           width: iconSize,
           height: iconSize,

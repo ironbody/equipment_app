@@ -24,11 +24,17 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
+          DrawerHeader(
+            decoration: const BoxDecoration(
               color: Colors.blue,
             ),
-            child: Text('Drawer Header'),
+            child: Center(child: Column(
+              children: [
+                Text('Logged in as:',style: TextStyle(fontSize: 20.0,color: Colors.white),),
+                Text(user.name,style: TextStyle(fontSize: 30.0,color: Colors.white),),
+                Text(user.email,style: TextStyle(fontSize: 30.0,color: Colors.white),),
+              ],
+            )),
           ),
           ListTile(
             title: const Text("Equipment List"),

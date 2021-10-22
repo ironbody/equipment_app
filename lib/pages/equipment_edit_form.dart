@@ -75,7 +75,10 @@ class _EquipmentEditFormState extends State<EquipmentEditForm> {
 
   @override
   Widget build(BuildContext context) {
-    _newEquipment = widget.equipment;
+    if (_newEquipment.name.isEmpty) {
+      _newEquipment = widget.equipment;
+    }
+
     var _selectedType = _newEquipment.deviceType;
 
     nameController.text = _newEquipment.name;
@@ -225,6 +228,7 @@ class _EquipmentEditFormState extends State<EquipmentEditForm> {
                   value: _selectedType,
                   onChanged: (DeviceType? newValue) {
                     setState(() {
+                      _saveForm();
                       _selectedType = newValue!;
                       _newEquipment.deviceType = newValue;
                     });
