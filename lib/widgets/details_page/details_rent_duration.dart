@@ -17,6 +17,7 @@ class DetailsRentDuration extends StatelessWidget {
     return SizedBox(
       width: width,
       child: Card(
+          elevation: 2.0,
           child: Padding(
               padding: EdgeInsets.all(padding),
               child: Column(

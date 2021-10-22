@@ -46,14 +46,20 @@ class _AdminFormState extends State<AdminForm> {
     var result = await db.addUser(newUser);
     var text = result ? "Admin added" : "User with that email already exists";
 
+    nameController.clear();
+    emailController.clear();
+    passwordController.clear();
+
+    FocusScope.of(context).unfocus();
+
     final snackbar = SnackBar(content: Text(text));
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   void _saveForm() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState?.save();
-    }
+    // if (_formKey.currentState!.validate()) {
+    //   _formKey.currentState?.save();
+    // }
   }
 
   @override
@@ -105,9 +111,9 @@ class _AdminFormState extends State<AdminForm> {
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
                   onSaved: (value) {},
-                  onFieldSubmitted: (_) {
-                    _saveForm();
-                  },
+                  // onFieldSubmitted: (_) {
+                  //   _saveForm();
+                  // },
                   controller: emailController,
                 ),
                 TextFormField(
@@ -137,7 +143,10 @@ class _AdminFormState extends State<AdminForm> {
               ],
             )),
       ),
-      drawer: AppDrawer(user: user, currentRoute: AdminForm.routeName,),
+      drawer: AppDrawer(
+        user: user,
+        currentRoute: AdminForm.routeName,
+      ),
     );
   }
 }

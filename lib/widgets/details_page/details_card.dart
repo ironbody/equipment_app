@@ -56,41 +56,47 @@ class _DetailsCardState extends State<DetailsCard> {
     var user = Provider.of<UserModel>(context).user;
     if (widget.equipment.available ||
         user.id != widget.equipment.booking?.userId) {
-    return Row(
-      children: [
-        Expanded(
-            child: SizedBox(
-                height: buttonHeight,
-                width: buttonWidth,
-                child: RentButton(
-                    onPressed: widget.equipment.available
-                        ? () => rentEquipment(context.read<UserModel>().user)
-                        : null))),
-      ]);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Expanded(
+              child: SizedBox(
+                  height: buttonHeight,
+                  width: buttonWidth,
+                  child: RentButton(
+                      onPressed: widget.equipment.available
+                          ? () => rentEquipment(context.read<UserModel>().user)
+                          : null))),
+        ]),
+    );
     }
 
-    return Row(
-      children: [
-        Expanded(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Expanded(
+              child: SizedBox(
+                  height: buttonHeight,
+                  width: buttonWidth,
+                  child: RentButton(
+                      onPressed: widget.equipment.available
+                          ? () => rentEquipment(context.read<UserModel>().user)
+                          : null))),
+          const SizedBox(
+            width: 8.0,
+          ),
+          Expanded(
             child: SizedBox(
                 height: buttonHeight,
                 width: buttonWidth,
-                child: RentButton(
-                    onPressed: widget.equipment.available
-                        ? () => rentEquipment(context.read<UserModel>().user)
-                        : null))),
-        const SizedBox(
-          width: 8.0,
-        ),
-        Expanded(
-          child: SizedBox(
-              height: buttonHeight,
-              width: buttonWidth,
-              child: ElevatedButton(
-                  onPressed: returnEquipment, child: const Text("Return"))),
-        ),
+                child: ElevatedButton(
+                    onPressed: returnEquipment, child: const Text("Return"))),
+          ),
 
-      ]);
+        ]),
+    );
 
 
   }
@@ -101,30 +107,43 @@ class _DetailsCardState extends State<DetailsCard> {
       return Container();
     }
 
-    return EditButton(onPressed: editEquipment);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: EditButton(onPressed: editEquipment)),
+        ],
+      ),
+    );
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          DetailIcon(
-              detailIcon:
-                  Equipment.iconFromDeviceType(widget.equipment.deviceType)),
-          Center(
-            child: Text(widget.equipment.name,
-                style: TextStyle(
-                    fontSize: titleSize, fontWeight: FontWeight.bold)),
-          ),
-          DetailsSerial(serial: widget.equipment.serial),
-          DetailsDescription(description: widget.equipment.description),
-          DetailsRentDuration(duration: widget.equipment.duration),
-          DetailStatus(available: widget.equipment.available),
-          Padding(padding: const EdgeInsets.all(3.0), child: _renderRow()),
-          _renderEditButton(),
-        ],
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxHeight: 700.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DetailIcon(
+                detailIcon:
+                    Equipment.iconFromDeviceType(widget.equipment.deviceType)),
+            Center(
+              child: Text(widget.equipment.name,
+                  style: TextStyle(
+                      fontSize: titleSize, fontWeight: FontWeight.bold)),
+            ),
+            DetailsSerial(serial: widget.equipment.serial),
+            DetailsDescription(description: widget.equipment.description),
+            DetailsRentDuration(duration: widget.equipment.duration),
+            DetailStatus(available: widget.equipment.available),
+            // Padding(padding: const EdgeInsets.all(3.0), child: _renderRow()),
+            _renderRow(),
+            _renderEditButton(),
+          ],
+        ),
       ),
     );
   }

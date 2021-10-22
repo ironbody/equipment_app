@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class EquipmentListView extends StatelessWidget {
   const EquipmentListView({Key? key, required this.equipmentList}) : super(key: key);
 
-  final List<Equipment> equipmentList;
+  final List<List<Equipment>> equipmentList;
 
   @override
   Widget build(BuildContext context) {

@@ -79,10 +79,8 @@ class _LoginFormState extends State<LoginForm> {
                     return null;
                   },
                   textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
                   onSaved: (value) {},
-                  onFieldSubmitted: (_) {
-                    _saveForm();
-                  },
                   controller: emailController,
                 ),
                 TextFormField(

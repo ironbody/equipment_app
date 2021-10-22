@@ -22,6 +22,7 @@ class DetailsDescription extends StatelessWidget {
         maxWidth: width,
       ),
       child: Card(
+          elevation: 2.0,
           child: Padding(
               padding: EdgeInsets.all(padding),
               child: Column(

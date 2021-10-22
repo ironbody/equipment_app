@@ -48,6 +48,12 @@ class _StudentFormState extends State<StudentForm> {
     var result = await db.addUser(newUser);
     var text = result ? "Student added" : "User with that email already exists";
 
+    nameController.clear();
+    emailController.clear();
+    passwordController.clear();
+
+    FocusScope.of(context).unfocus();
+
     final snackbar = SnackBar(content: Text(text));
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
     // await db.addEquipment(_newEquipment);
@@ -55,16 +61,16 @@ class _StudentFormState extends State<StudentForm> {
   }
 
   void _saveForm() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState?.save();
-      // }
-      // print("saved");
-      // print(_newEquipment.name);
-      // print(_newEquipment.description);
-      // print(_newEquipment.serial);
-      // print(_newEquipment.duration);
-      // print(_newEquipment.deviceType.toString());
-    }
+    // if (_formKey.currentState!.validate()) {
+    //   _formKey.currentState?.save();
+    //   // }
+    //   // print("saved");
+    //   // print(_newEquipment.name);
+    //   // print(_newEquipment.description);
+    //   // print(_newEquipment.serial);
+    //   // print(_newEquipment.duration);
+    //   // print(_newEquipment.deviceType.toString());
+    // }
   }
 
   @override
@@ -115,9 +121,9 @@ class _StudentFormState extends State<StudentForm> {
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
                   onSaved: (value) {},
-                  onFieldSubmitted: (_) {
-                    _saveForm();
-                  },
+                  // onFieldSubmitted: (_) {
+                  //   _saveForm();
+                  // },
                   controller: emailController,
                 ),
                 TextFormField(
