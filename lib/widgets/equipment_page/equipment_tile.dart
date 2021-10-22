@@ -2,6 +2,7 @@ import 'package:equipment_app/models/equipment.dart';
 import 'package:equipment_app/pages/equipment_details_page.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EquipmentTile extends StatelessWidget {
   const EquipmentTile({Key? key, required this.equipment}) : super(key: key);

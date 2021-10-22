@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:equipment_app/models/booking_model.dart';
 import 'package:flutter/material.dart';
 
 enum DeviceType {
@@ -23,7 +24,7 @@ DeviceType stringToDeviceType(String str) {
       orElse: () => DeviceType.other);
 }
 
-class Equipment {
+class Equipment extends ChangeNotifier {
   Equipment({
     this.id,
     required this.name,
@@ -31,9 +32,6 @@ class Equipment {
     required this.serial,
     required this.deviceType,
     required this.duration,
-    this.startDate,
-    this.endDate,
-    this.available = true,
   });
 
   int? id;
@@ -42,20 +40,29 @@ class Equipment {
   String serial;
   DeviceType deviceType;
   int duration;
-  DateTime? startDate;
-  DateTime? endDate;
-  bool? available;
 
-  factory Equipment.fromMap(Map<String, dynamic> json) => Equipment(
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
-        serial: json["serial"],
-        deviceType: stringToDeviceType(json["deviceType"]),
-        // startDate DateTime.parse(json["bookingDate"]),
-        duration: json["duration"],
-        // available: json["available"],
-      );
+  Booking? booking;
+
+  bool get available {
+    if (booking == null) {
+      return true;
+    }
+
+    return DateTime.now().isAfter(booking!.endDate) ||
+        booking!.returned != null;
+  }
+
+  factory Equipment.fromMap(Map<String, dynamic> json) {
+    Equipment e = Equipment(
+      id: json["id"],
+      name: json["name"],
+      description: json["description"],
+      serial: json["serial"],
+      deviceType: stringToDeviceType(json["deviceType"]),
+      duration: json["duration"],
+    );
+    return e;
+  }
 
   Map<String, dynamic> toMap() => {
         // "id": id,
@@ -63,9 +70,7 @@ class Equipment {
         "description": description,
         "serial": serial,
         "deviceType": deviceType.toShortString(),
-        // "bookingDate": bookingDate?.toIso8601String(),
         "duration": duration,
-        // "available": available ? 1 : 0,
       };
 
   static IconData iconFromDeviceType(DeviceType type) {

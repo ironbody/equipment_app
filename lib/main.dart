@@ -1,9 +1,16 @@
 import 'package:equipment_app/models/equipment_list_model.dart';
+import 'package:equipment_app/models/user_model.dart';
+import 'package:equipment_app/pages/admin_form.dart';
+import 'package:equipment_app/pages/equipment_form_page.dart';
 import 'package:equipment_app/pages/equipment_page.dart';
 import 'package:equipment_app/db/database_provider.dart';
 import 'package:equipment_app/models/equipment.dart';
+import 'package:equipment_app/pages/login_page.dart';
+import 'package:equipment_app/pages/student_form.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:sqflite/sqflite.dart';
+import 'dart:convert';
 
 import 'package:provider/provider.dart';
 
@@ -13,19 +20,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   var db = DatabaseProvider();
-  // await db.addEquipment(Equipment(
-  //     name: "Razer laptop",
-  //     description: "laptop from razer",
-  //     serial: "ABABA",
-  //     deviceType: DeviceType.laptop,
-  //     duration: 4));
-  // await db.addEquipment(Equipment(serial: "stZhg3o2"));
-  // await db.addEquipment(Equipment(serial: "gkczPAs7"));
-  // await db.addEquipment(Equipment(serial: "HY6NkvLb"));
-  // await db.addEquipment(Equipment(serial: "R9U3FG3W"));
+  var deeb = await db.database;
+  // var list = await db.getEquipment();
+  // var e = list[0];
+  // e.name = "new";
+  // await db.updateEquipment(e);
+  // await db.addUser(User(
+  //     name: "test", email: "test@bth.se", password: "test", priviledges: 1));
+  var result = await deeb.rawQuery("SELECT * FROM v_equipment;");
+  print(json.encode(result));
 
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => EquipmentListModel())
+    ChangeNotifierProvider(create: (context) => EquipmentListModel()),
+    ChangeNotifierProvider(create: (context) => UserModel()),
   ], child: const MyApp()));
 }
 
@@ -40,7 +47,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const EquipmentPage(),
+      routes: {
+        '/': (context) => const LoginForm(),
+        '/equipment': (context) => const EquipmentPage(),
+        '/equipment_form': (context) => const EquipmentForm(),
+        '/student_form': (context) => const StudentForm(),
+        '/admin_form': (context) => const AdminForm(),
+      },
+      initialRoute: '/',
     );
   }
 }

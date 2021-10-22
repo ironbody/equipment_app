@@ -4,28 +4,26 @@ import 'package:equipment_app/models/equipment_list_model.dart';
 import 'package:equipment_app/models/user_model.dart';
 import 'package:equipment_app/pages/equipment_edit_form.dart';
 import 'package:equipment_app/widgets/details_page/details_description.dart';
-import 'package:equipment_app/widgets/details_page/details_icon.dart';
 import 'package:equipment_app/widgets/details_page/details_edit_button.dart';
+import 'package:equipment_app/widgets/details_page/details_icon.dart';
 import 'package:equipment_app/widgets/details_page/details_rent_button.dart';
 import 'package:equipment_app/widgets/details_page/details_rent_duration.dart';
 import 'package:equipment_app/widgets/details_page/details_serial.dart';
 import 'package:equipment_app/widgets/details_page/details_status.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-class EquipmentDetailsPage extends StatefulWidget {
-  const EquipmentDetailsPage({Key? key, required this.equipment})
-      : super(key: key);
+class DetailsCard extends StatefulWidget {
+  const DetailsCard({Key? key, required this.equipment}) : super(key: key);
 
   final Equipment equipment;
 
   @override
-  State<EquipmentDetailsPage> createState() => _EquipmentDetailsPageState();
+  _DetailsCardState createState() => _DetailsCardState();
 }
 
-class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
-  final double titleSize = 30.0;
+class _DetailsCardState extends State<DetailsCard> {
+    final double titleSize = 30.0;
 
   final double buttonHeight = 50.0;
 
@@ -53,23 +51,6 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
     Navigator.of(context).pop();
   }
 
-  Widget _renderReturnButton() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(
-          width: 8.0,
-        ),
-        Expanded(
-          child: SizedBox(
-              height: buttonHeight,
-              width: buttonWidth,
-              child: ElevatedButton(
-                  onPressed: returnEquipment, child: const Text("Return"))),
-        ),
-      ],
-    );
-  }
 
   Widget _renderRow() {
     var user = Provider.of<UserModel>(context).user;
@@ -123,14 +104,11 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
     return EditButton(onPressed: editEquipment);
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("${widget.equipment.name} Details"),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(15.0),
+    return Card(
+      child: Column(
         children: [
           DetailIcon(
               detailIcon:

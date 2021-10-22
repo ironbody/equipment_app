@@ -8,6 +8,9 @@ import 'package:provider/provider.dart';
 class EquipmentForm extends StatefulWidget {
   const EquipmentForm({Key? key}) : super(key: key);
 
+    static const routeName = "/equipment_form";
+
+
   @override
   _EquipmentFormState createState() => _EquipmentFormState();
 }
@@ -68,6 +71,7 @@ class _EquipmentFormState extends State<EquipmentForm> {
       appBar: AppBar(
         title: const Text("Add Equipment"),
       ),
+      restorationId: "equipment_form",
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
